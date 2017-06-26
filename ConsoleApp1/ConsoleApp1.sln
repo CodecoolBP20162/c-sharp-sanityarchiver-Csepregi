@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{574D4925-54FC-422E-BFEE-6A158230C67A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanityArchiver", "SanityArchiver\SanityArchiver.csproj", "{8666ED6B-EC83-458A-BDAE-1C5EC130069C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{574D4925-54FC-422E-BFEE-6A158230C67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{574D4925-54FC-422E-BFEE-6A158230C67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{574D4925-54FC-422E-BFEE-6A158230C67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{574D4925-54FC-422E-BFEE-6A158230C67A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8666ED6B-EC83-458A-BDAE-1C5EC130069C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8666ED6B-EC83-458A-BDAE-1C5EC130069C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8666ED6B-EC83-458A-BDAE-1C5EC130069C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8666ED6B-EC83-458A-BDAE-1C5EC130069C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
