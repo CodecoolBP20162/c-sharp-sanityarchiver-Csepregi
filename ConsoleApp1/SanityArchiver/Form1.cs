@@ -31,28 +31,25 @@ namespace SanityArchiver
             }
         }
 
-                  
-
-        private void textPath_SelectedIndexChanged(object sender, EventArgs e)
+        public void rootDirectory(DirectoryInfo drinfo)
         {
-            currentDirectory = textPath.SelectedItem.ToString();
-            path.Text = currentDirectory;
+            
             treeView.Nodes.Clear();
             try
             {
-                DriveInfo drive = (DriveInfo)textPath.SelectedItem;
-                foreach (DirectoryInfo dirInfo in drive.RootDirectory.GetDirectories())
+               
+                foreach (DirectoryInfo dirInfo in drinfo.GetDirectories())
                 {
-           
+
                     TreeNode node = new TreeNode();
                     node.Text = dirInfo.Name;
                     node.ImageIndex = 1;
                     node.SelectedImageIndex = 1;
-                    treeView.Nodes.Add(node);                
+                    treeView.Nodes.Add(node);
                 }
 
 
-                foreach (FileInfo file in drive.RootDirectory.GetFiles())
+                foreach (FileInfo file in drinfo.GetFiles())
                 {
                     if (file.Exists)
                     {
@@ -68,6 +65,22 @@ namespace SanityArchiver
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+    
+                  
+
+        private void textPath_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentDirectory = textPath.SelectedItem.ToString();
+            path.Text = currentDirectory;
+            treeView.Nodes.Clear();
+           
+            
+            DriveInfo drive = (DriveInfo)textPath.SelectedItem;
+            rootDirectory(drive.RootDirectory);
+                
+            
+            
         }
         private void treeView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
