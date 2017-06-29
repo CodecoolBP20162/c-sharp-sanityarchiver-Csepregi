@@ -35,11 +35,11 @@ namespace SanityArchiver
 
         public void rootDirectory(DirectoryInfo drinfo)
         {
-            
+
             treeView.Nodes.Clear();
             try
             {
-               
+
                 foreach (DirectoryInfo dirInfo in drinfo.GetDirectories())
                 {
 
@@ -68,32 +68,32 @@ namespace SanityArchiver
                 MessageBox.Show(ex.Message);
             }
         }
-    
-                  
+
+
 
         private void textPath_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentDirectory = textPath.SelectedItem.ToString();
             path.Text = currentDirectory;
             treeView.Nodes.Clear();
-           
-            
+
+
             DriveInfo drive = (DriveInfo)textPath.SelectedItem;
             rootDirectory(drive.RootDirectory);
-                
-            
-            
+
+
+
         }
         private void treeView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            currentDirectory = currentDirectory +  treeView.SelectedNode.Text + "\\";
+            currentDirectory = currentDirectory + treeView.SelectedNode.Text + "\\";
             path.Text = currentDirectory;
-          
+
             DirectoryInfo drinfo = new DirectoryInfo(currentDirectory);
             rootDirectory(drinfo);
-                
-                
-            
+
+
+
 
 
 
@@ -111,9 +111,9 @@ namespace SanityArchiver
 
             //try
             //{
-            //    if(treeView.SelectedNode != null)
+            //    if (treeView.SelectedNode != null)
             //    {
-            //        DirectoryInfo drinfo = new DirectoryInfo(currentDirectory);
+            //        DirectoryInfo drinfo = new DirectoryInfo(sourcePath);
             //        DirectoryInfo[] directories = drinfo.GetDirectories();
 
             //        foreach (FileInfo file in drinfo.GetFiles())
@@ -148,8 +148,8 @@ namespace SanityArchiver
 
             //        }
 
-            //    }
-            //}
+                //}
+           // }
 
 
 
@@ -158,20 +158,114 @@ namespace SanityArchiver
             //    MessageBox.Show(ex.Message);
             //}
         }
-                                   
+
 
         private void toolStripMenuItemPaste_Click(object sender, EventArgs e)
         {
+            //    if (treeView.SelectedNode != null)
+            //    {
+            //        bool copy = false;
+            //        try
+            //        {
+            //            DirectoryInfo drinfo = new DirectoryInfo(currentDirectory);
+            //            DirectoryInfo[] directories = drinfo.GetDirectories();
+            //            if(directories.Length > 0)
+            //            {
+            //                foreach (DirectoryInfo directory in directories)
+            //                {
+            //                    if (directory.Name == treeView.SelectedNode.Text && Clipboard.ContainsFileDropList())
+            //                    {
+            //                        foreach (string file in Clipboard.GetFileDropList())
+            //                        {
+            //                            string targetDir = drinfo.FullName + @"\" + directory.Name;
+            //                            File.Copy(Path.Combine(file.Replace(Path.GetFileName(file), ""), Path.GetFileName(file)), Path.Combine(targetDir, Path.GetFileName(file)), true);
+            //                        }
+            //                        copy = true;
+            //                    }
+            //                }
+            //            }
+            //            if(copy)
+            //            {
+            //                foreach(string file in Clipboard.GetFileDropList())
+            //                {
+            //                    TreeNode node = treeView.Nodes[0].Nodes[treeView.SelectedNode.Index].Nodes.Add(Path.GetFileName(file));
+            //                    node.ImageIndex = node.SelectedImageIndex = 1;
+            //                }
+            //                copy = false;
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            copy = false;
+            //            MessageBox.Show(ex.Message);
+
+            //    }
+            //    }
+            //}
+
             string sourceFile = sourcePath + file;
             string targetDirectory = currentDirectory + file;
-            Console.WriteLine(sourcePath + " " +  file + " " + targetDirectory);
             System.IO.File.Copy(sourceFile, targetDirectory, true);
             DirectoryInfo drinfo = new DirectoryInfo(currentDirectory);
             rootDirectory(drinfo);
-
         }
 
+
+
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
+        {
+            if (treeView.SelectedNode != null)
+            {
+                bool deleted = false;
+                try
+                {
+                    DirectoryInfo drinfo = new DirectoryInfo(currentDirectory);
+                    DirectoryInfo[] directories = drinfo.GetDirectories();
+                    foreach (FileInfo file in drinfo.GetFiles())
+                    {
+                        if (file.Exists && file.Name == treeView.SelectedNode.Text)
+                        {
+                            file.Delete();
+                            deleted = true;
+                        }
+                    }
+                    if (directories.Length > 0)
+                    {
+                        foreach (DirectoryInfo directory in directories)
+                        {
+                            foreach (FileInfo file in drinfo.GetFiles())
+                            {
+                                if (file.Exists && file.Name == treeView.SelectedNode.Text)
+                                {
+                                    file.Delete();
+                                    deleted = true;
+                                }
+                            }
+                            if (treeView.SelectedNode.Text == directory.Name)
+                            {
+                                foreach (FileInfo file in directory.GetFiles())
+                                {
+                                    if (file.Exists)
+                                        file.Delete();
+                                }
+                                directory.Delete();
+                                deleted = true;
+                            }
+                        }
+                    }
+                
+                if (deleted)
+                    treeView.SelectedNode.Remove();
+            }
+                catch (Exception ex)
+                {
+                    deleted = false;
+                    MessageBox.Show(ex.Message);
+                }
+            }
+           
+        }
+        private void toolStripMenuItemProperties_Click(object sender, EventArgs e)
         {
 
         }
@@ -202,6 +296,8 @@ namespace SanityArchiver
             }
 
         }
+
+        
     }
 }
         
