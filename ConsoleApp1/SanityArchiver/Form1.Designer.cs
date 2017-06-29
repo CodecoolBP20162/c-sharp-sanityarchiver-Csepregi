@@ -44,6 +44,7 @@
             // 
             // treeView
             // 
+            this.treeView.ContextMenuStrip = this.contextMenuStrip;
             this.treeView.ImageIndex = 0;
             this.treeView.ImageList = this.imageList1;
             this.treeView.Location = new System.Drawing.Point(12, 93);
